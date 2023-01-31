@@ -32,10 +32,12 @@ const App: FC = () => {
     if (isChosen === 'smallLith') {
       const LITHUANIA = countryData?.find((item) => item.name === 'Lithuania');
 
-      const filter = [...(countryData as ICountry[])].filter(
-        (country) => country.area < LITHUANIA.area
-      );
-      setFiltered(filter);
+      if (LITHUANIA) {
+        const filter = [...(countryData as ICountry[])].filter(
+          (country) => country.area < LITHUANIA.area
+        );
+        setFiltered(filter);
+      }
     } else if (isChosen === 'withinOceania') {
       const REGION = 'Oceania';
 
