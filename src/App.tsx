@@ -78,13 +78,18 @@ const App: FC = () => {
   return (
     <div className='App'>
       <div className='container'>
-        <button className='btn btn-color' onClick={() => sort('asc')}>
-          Sort ↑
-        </button>
-        <button className='btn btn-color' onClick={() => sort('desc')}>
-          Sort ↓
-        </button>
-        <button className='btn btn-color'>Filter</button>
+        <h1>CountryList</h1>
+        <div className='btn-wrapper'>
+          <div className='btn-group'>
+            <button className='btn btn-color' onClick={() => sort('asc')}>
+              Sort ↑
+            </button>
+            <button className='btn btn-color' onClick={() => sort('desc')}>
+              Sort ↓
+            </button>
+          </div>
+          <button className='btn btn-color'>Filter</button>
+        </div>
         <button className='btn btn-color' onClick={filter}>
           Apply
         </button>

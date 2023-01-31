@@ -4,10 +4,20 @@
   padding: 2rem;
 }
 
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-group {
+  display: flex;
+  gap: 2rem;
+}
+
 .btn {
   outline: none;
   border: none;
-  padding: 1.5rem;
+  padding: 1.5rem 3rem;
   border-radius: 6px;
   font-family: 'Inter', sans-serif;
 }
