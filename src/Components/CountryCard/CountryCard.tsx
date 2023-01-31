@@ -1,6 +1,10 @@
 import { ICountry } from '../../Interfaces';
 
-const CountryCard = ({ country }) => {
+interface Props {
+  country: ICountry;
+}
+
+const CountryCard = ({ country }: Props) => {
   return (
     <div>
       {
