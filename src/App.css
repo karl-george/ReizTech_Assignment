@@ -4,6 +4,11 @@
   padding: 2rem;
 }
 
+.title {
+  font-size: 5rem;
+  margin: 2rem 0;
+}
+
 .btn-wrapper {
   display: flex;
   justify-content: space-between;

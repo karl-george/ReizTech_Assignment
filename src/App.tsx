@@ -78,7 +78,7 @@ const App: FC = () => {
   return (
     <div className='App'>
       <div className='container'>
-        <h1>CountryList</h1>
+        <h1 className='title'>CountryList</h1>
         <div className='btn-wrapper'>
           <div className='btn-group'>
             <button className='btn btn-color' onClick={() => sort('asc')}>
