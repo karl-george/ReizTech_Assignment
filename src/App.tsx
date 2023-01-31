@@ -100,7 +100,6 @@ const App: FC = () => {
 
         {isToggled && (
           <fieldset className='filter-group'>
-            {/* <legend className='filter-legend'>Please Choose Filter</legend> */}
             <div className='control'>
               <input
                 type='radio'
