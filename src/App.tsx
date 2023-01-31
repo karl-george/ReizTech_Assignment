@@ -20,11 +20,25 @@ const App: FC = () => {
         (a, b) => a.name.localeCompare(b.name)
       );
       setCountryData(sortAsc);
+
+      if (filtered) {
+        const sortedFilter: ICountry[] = [...(filtered as ICountry[])].sort(
+          (a, b) => a.name.localeCompare(b.name)
+        );
+        setFiltered(sortedFilter);
+      }
     } else if (dir === 'desc') {
       const sortDesc: ICountry[] = [...(countryData as ICountry[])].sort(
         (a, b) => -1 * a.name.localeCompare(b.name)
       );
       setCountryData(sortDesc);
+
+      if (filtered) {
+        const sortedFilter: ICountry[] = [...(filtered as ICountry[])].sort(
+          (a, b) => -1 * a.name.localeCompare(b.name)
+        );
+        setFiltered(sortedFilter);
+      }
     }
   };
 
