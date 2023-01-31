@@ -29,6 +29,10 @@
   cursor: pointer;
 }
 
+.btn-small {
+  padding: 1rem 2.5rem;
+}
+
 .btn-color {
   color: #fff;
   background: var(--color-primary);
@@ -36,4 +40,37 @@
 
 .btn-color:hover {
   background: #6868d1;
+}
+
+.filter-group {
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 12px 14px 8px -10px rgba(0, 0, 0, 0.1);
+  padding: 2rem 2.5rem;
+  margin-top: 1.5rem;
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 380px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 0.5rem;
+}
+
+.filter-btn-group {
+  display: flex;
+  gap: 1.3rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1.2rem;
+  width: 100%;
+}
+
+.filter-label {
 }

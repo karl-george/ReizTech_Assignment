@@ -7,6 +7,7 @@ const App: FC = () => {
   const [countryData, setCountryData] = useState<ICountry[]>();
   const [filtered, setFiltered] = useState<ICountry[]>();
   const [isChosen, setIsChosen] = useState<string>();
+  const [isToggled, setIsToggled] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v2/all?fields=name,region,area`)
@@ -67,6 +68,10 @@ const App: FC = () => {
     setIsChosen(undefined);
   };
 
+  const toggle = (): void => {
+    setIsToggled(!isToggled);
+  };
+
   const countries = countryData?.map((country: ICountry, idx: number) => (
     <CountryCard key={idx} country={country} />
   ));
@@ -88,39 +93,48 @@ const App: FC = () => {
               Sort ↓
             </button>
           </div>
-          <button className='btn btn-color'>Filter</button>
+          <button className='btn btn-color' onClick={toggle}>
+            Filter
+          </button>
         </div>
-        <button className='btn btn-color' onClick={filter}>
-          Apply
-        </button>
-        <button className='btn btn-color' onClick={reset}>
-          Reset
-        </button>
-        <fieldset>
-          <legend>Please Choose Filter</legend>
-          <div>
-            <input
-              type='radio'
-              value='smallerThanLith'
-              name='filter'
-              id='smallLith'
-              onChange={() => setIsChosen('smallLith')}
-              checked={isChosen === 'smallLith'}
-            />
-            <label htmlFor='smallLith'>Countries smaller than Lithuania</label>
-          </div>
-          <div>
-            <input
-              type='radio'
-              value='withinOceania'
-              name='filter'
-              id='withinOceania'
-              onChange={() => setIsChosen('withinOceania')}
-              checked={isChosen === 'withinOceania'}
-            />
-            <label htmlFor='withinOceania'>Countries in Oceania</label>
-          </div>
-        </fieldset>
+
+        {isToggled && (
+          <fieldset className='filter-group'>
+            {/* <legend className='filter-legend'>Please Choose Filter</legend> */}
+            <div className='control'>
+              <input
+                type='radio'
+                value='smallerThanLith'
+                name='filter'
+                id='smallLith'
+                onChange={() => setIsChosen('smallLith')}
+                checked={isChosen === 'smallLith'}
+              />
+              <label className='filter-label' htmlFor='smallLith'>
+                Countries smaller than Lithuania
+              </label>
+            </div>
+            <div className='control'>
+              <input
+                type='radio'
+                value='withinOceania'
+                name='filter'
+                id='withinOceania'
+                onChange={() => setIsChosen('withinOceania')}
+                checked={isChosen === 'withinOceania'}
+              />
+              <label htmlFor='withinOceania'>Countries in Oceania</label>
+            </div>
+            <div className='filter-btn-group'>
+              <button className='btn btn-small btn-color' onClick={filter}>
+                Apply
+              </button>
+              <button className='btn btn-small btn-color' onClick={reset}>
+                Reset
+              </button>
+            </div>
+          </fieldset>
+        )}
         {filteredCountries ? filteredCountries : countries}
       </div>
     </div>
