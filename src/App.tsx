@@ -77,39 +77,47 @@ const App: FC = () => {
 
   return (
     <div className='App'>
-      <button onClick={() => sort('asc')}>Ascending</button>
-      <button onClick={() => sort('desc')}>Descending</button>
-      <button>Filter</button>
-      <button onClick={filter}>Apply</button>
-      <button onClick={reset}>Reset</button>
-
-      <fieldset>
-        <legend>Please Choose Filter</legend>
-        <div>
-          <input
-            type='radio'
-            value='smallerThanLith'
-            name='filter'
-            id='smallLith'
-            onChange={() => setIsChosen('smallLith')}
-            checked={isChosen === 'smallLith'}
-          />
-          <label htmlFor='smallLith'>Countries smaller than Lithuania</label>
-        </div>
-        <div>
-          <input
-            type='radio'
-            value='withinOceania'
-            name='filter'
-            id='withinOceania'
-            onChange={() => setIsChosen('withinOceania')}
-            checked={isChosen === 'withinOceania'}
-          />
-          <label htmlFor='withinOceania'>Countries in Oceania</label>
-        </div>
-      </fieldset>
-
-      {filteredCountries ? filteredCountries : countries}
+      <div className='container'>
+        <button className='btn btn-color' onClick={() => sort('asc')}>
+          Sort ↑
+        </button>
+        <button className='btn btn-color' onClick={() => sort('desc')}>
+          Sort ↓
+        </button>
+        <button className='btn btn-color'>Filter</button>
+        <button className='btn btn-color' onClick={filter}>
+          Apply
+        </button>
+        <button className='btn btn-color' onClick={reset}>
+          Reset
+        </button>
+        <fieldset>
+          <legend>Please Choose Filter</legend>
+          <div>
+            <input
+              type='radio'
+              value='smallerThanLith'
+              name='filter'
+              id='smallLith'
+              onChange={() => setIsChosen('smallLith')}
+              checked={isChosen === 'smallLith'}
+            />
+            <label htmlFor='smallLith'>Countries smaller than Lithuania</label>
+          </div>
+          <div>
+            <input
+              type='radio'
+              value='withinOceania'
+              name='filter'
+              id='withinOceania'
+              onChange={() => setIsChosen('withinOceania')}
+              checked={isChosen === 'withinOceania'}
+            />
+            <label htmlFor='withinOceania'>Countries in Oceania</label>
+          </div>
+        </fieldset>
+        {filteredCountries ? filteredCountries : countries}
+      </div>
     </div>
   );
 };
