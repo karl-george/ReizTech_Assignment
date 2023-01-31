@@ -5,6 +5,7 @@
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  box-shadow: 12px 14px 8px -10px rgba(0, 0, 0, 0.1);
 }
 
 .country-card__title {
