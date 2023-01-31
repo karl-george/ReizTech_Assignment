@@ -25,10 +25,15 @@
   padding: 1.5rem 3rem;
   border-radius: 6px;
   font-family: 'Inter', sans-serif;
-  font-size: 1.7rem;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .btn-color {
   color: #fff;
   background: var(--color-primary);
+}
+
+.btn-color:hover {
+  background: #6868d1;
 }
