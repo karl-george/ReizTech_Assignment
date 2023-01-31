@@ -1,0 +1,19 @@
+.country-card {
+  background: #fff;
+  margin: 2rem 0;
+  padding: 2rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.country-card__title {
+  font-size: 3.2rem;
+}
+.country-card__region {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+.country-card__size {
+  font-size: 1.8rem;
+}
