@@ -1,13 +1,13 @@
 import { useState, useEffect, FC } from 'react';
 import { ICountry } from './Interfaces';
 import CountryCard from './Components/CountryCard/CountryCard';
-import './App.css';
 import Pagination from './Components/Pagination/Pagination';
+import './App.css';
 
 const App: FC = () => {
-  const [countryData, setCountryData] = useState<ICountry[]>();
-  const [filteredData, setFilteredData] = useState<ICountry[]>();
-  const [chosenFilter, setChosenFilter] = useState<string>();
+  const [countryData, setCountryData] = useState<ICountry[]>([]);
+  const [filteredData, setFilteredData] = useState<ICountry[]>([]);
+  const [chosenFilter, setChosenFilter] = useState<string>('');
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [countriesPerPage, setCountriesPerPage] = useState<number>(15);
@@ -27,8 +27,8 @@ const App: FC = () => {
     idxOfFirstCountry,
     idxOfLastCountry
   );
-  const numberOfPages =
-    Math.ceil(filteredData?.length / countriesPerPage) || [];
+
+  const numberOfPages = Math.ceil(filteredData.length / countriesPerPage);
 
   const sort = (dir: string): void => {
     if (dir === 'asc') {
@@ -53,6 +53,7 @@ const App: FC = () => {
           (country) => country.area < LITHUANIA.area
         );
         setFilteredData(filter);
+        setCurrentPage(1);
       }
     } else if (chosenFilter === 'withinOceania') {
       const REGION = 'Oceania';
@@ -61,23 +62,19 @@ const App: FC = () => {
         (country) => country.region === REGION
       );
       setFilteredData(filter);
+      setCurrentPage(1);
     }
   };
 
   const reset = (): void => {
     setFilteredData(countryData);
-    setChosenFilter(undefined);
+    setChosenFilter('');
+    setCurrentPage(1);
   };
 
   const toggle = (): void => {
     setIsToggled(!isToggled);
   };
-
-  const filteredCountriesList = filteredData?.map(
-    (country: ICountry, idx: number) => (
-      <CountryCard key={idx} country={country} />
-    )
-  );
 
   const currentCountriesList = currentCountries?.map(
     (country: ICountry, idx: number) => (
