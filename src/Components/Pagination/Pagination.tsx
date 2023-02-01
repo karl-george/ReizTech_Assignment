@@ -42,31 +42,43 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
   return (
     <div>
       <ul className='pagination'>
-        <li className='page-item'>
-          <a href='#' onClick={() => setCurrentPage(1)} className='page-number'>
-            ↞
-          </a>
-        </li>
-        <li className='page-item'>
-          <a href='#' onClick={prevPage} className='page-number'>
-            ←
-          </a>
-        </li>
+        {currentPage !== 1 && (
+          <>
+            <li className='page-item'>
+              <a
+                href='#'
+                onClick={() => setCurrentPage(1)}
+                className='page-number'
+              >
+                ↞
+              </a>
+            </li>
+            <li className='page-item'>
+              <a href='#' onClick={prevPage} className='page-number'>
+                ←
+              </a>
+            </li>
+          </>
+        )}
         {renderPageList}
-        <li className='page-item'>
-          <a href='#' onClick={nextPage} className='page-number'>
-            →
-          </a>
-        </li>
-        <li className='page-item'>
-          <a
-            href='#'
-            onClick={() => setCurrentPage(pageNumbers.length)}
-            className='page-number'
-          >
-            ↠
-          </a>
-        </li>
+        {currentPage !== pageNumbers.length && (
+          <>
+            <li className='page-item'>
+              <a href='#' onClick={nextPage} className='page-number'>
+                →
+              </a>
+            </li>
+            <li className='page-item'>
+              <a
+                href='#'
+                onClick={() => setCurrentPage(pageNumbers.length)}
+                className='page-number'
+              >
+                ↠
+              </a>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );
