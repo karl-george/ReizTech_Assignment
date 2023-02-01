@@ -10,7 +10,7 @@ const App: FC = () => {
   const [chosenFilter, setChosenFilter] = useState<string>('');
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [countriesPerPage, setCountriesPerPage] = useState<number>(15);
+  const [countriesPerPage, setCountriesPerPage] = useState<number>(10);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v2/all?fields=name,region,area`)
