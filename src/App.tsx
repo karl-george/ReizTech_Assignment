@@ -8,6 +8,8 @@ const App: FC = () => {
   const [filteredData, setFilteredData] = useState<ICountry[]>();
   const [chosenFilter, setChosenFilter] = useState<string>();
   const [isToggled, setIsToggled] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [countriesPerPage, setCountriesPerPage] = useState<number>(15);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v2/all?fields=name,region,area`)
@@ -17,6 +19,15 @@ const App: FC = () => {
         setFilteredData(data);
       });
   }, []);
+
+  const idxOfLastCountry = currentPage * countriesPerPage;
+  const idxOfFirstCountry = idxOfLastCountry - countriesPerPage;
+  const currentCountries = filteredData?.slice(
+    idxOfFirstCountry,
+    idxOfLastCountry
+  );
+  const numberOfPages =
+    Math.ceil(filteredData?.length / countriesPerPage) || [];
 
   const sort = (dir: string): void => {
     if (dir === 'asc') {
@@ -62,6 +73,12 @@ const App: FC = () => {
   };
 
   const filteredCountriesList = filteredData?.map(
+    (country: ICountry, idx: number) => (
+      <CountryCard key={idx} country={country} />
+    )
+  );
+
+  const currentCountriesList = currentCountries?.map(
     (country: ICountry, idx: number) => (
       <CountryCard key={idx} country={country} />
     )
@@ -121,7 +138,7 @@ const App: FC = () => {
             </div>
           </fieldset>
         )}
-        {filteredCountriesList}
+        {currentCountriesList}
       </div>
     </div>
   );
