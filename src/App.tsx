@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react';
 import { ICountry } from './Interfaces';
 import CountryCard from './Components/CountryCard/CountryCard';
 import './App.css';
+import Pagination from './Components/Pagination/Pagination';
 
 const App: FC = () => {
   const [countryData, setCountryData] = useState<ICountry[]>();
@@ -139,6 +140,11 @@ const App: FC = () => {
           </fieldset>
         )}
         {currentCountriesList}
+        <Pagination
+          numberOfPages={numberOfPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
