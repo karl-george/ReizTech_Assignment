@@ -12,7 +12,11 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
 
   const pageNumberList = pageNumbers.map((pageNumber) => (
     <li key={pageNumber}>
-      <a href='#' onClick={() => setCurrentPage(pageNumber)}>
+      <a
+        href='#'
+        onClick={() => setCurrentPage(pageNumber)}
+        className={`page-number ${currentPage == pageNumber ? 'active' : ``}`}
+      >
         {pageNumber}
       </a>
     </li>
@@ -32,16 +36,16 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
 
   return (
     <div>
-      <ul>
-        <li>
-          <a href='#' onClick={prevPage}>
-            Previous
+      <ul className='pagination'>
+        <li className='page-item'>
+          <a href='#' onClick={prevPage} className='prev page-number'>
+            ←
           </a>
         </li>
         {pageNumberList}
-        <li>
-          <a href='#' onClick={nextPage}>
-            Next
+        <li className='page-item'>
+          <a href='#' onClick={nextPage} className='next page-number'>
+            →
           </a>
         </li>
       </ul>
