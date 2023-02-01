@@ -10,7 +10,7 @@ const CountryCard = ({ country }: Props) => {
     <div className='country-card'>
       <h2 className='country-card__title'>{country.name}</h2>
       <p className='country-card__region'>Region: {country.region}</p>
-      <p className='country-card__size'>Size: {country.area}</p>
+      <p className='country-card__size'>Size: {country.area}km²</p>
     </div>
   );
 };
