@@ -5,80 +5,67 @@ import './App.css';
 
 const App: FC = () => {
   const [countryData, setCountryData] = useState<ICountry[]>();
-  const [filtered, setFiltered] = useState<ICountry[]>();
-  const [isChosen, setIsChosen] = useState<string>();
+  const [filteredData, setFilteredData] = useState<ICountry[]>();
+  const [chosenFilter, setChosenFilter] = useState<string>();
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v2/all?fields=name,region,area`)
       .then((res) => res.json())
-      .then((data) => setCountryData(data));
+      .then((data) => {
+        setCountryData(data);
+        setFilteredData(data);
+      });
   }, []);
 
   const sort = (dir: string): void => {
     if (dir === 'asc') {
-      const sortAsc: ICountry[] = [...(countryData as ICountry[])].sort(
+      const sortedFilter: ICountry[] = [...(filteredData as ICountry[])].sort(
         (a, b) => a.name.localeCompare(b.name)
       );
-      setCountryData(sortAsc);
-
-      if (filtered) {
-        const sortedFilter: ICountry[] = [...(filtered as ICountry[])].sort(
-          (a, b) => a.name.localeCompare(b.name)
-        );
-        setFiltered(sortedFilter);
-      }
+      setFilteredData(sortedFilter);
     } else if (dir === 'desc') {
-      const sortDesc: ICountry[] = [...(countryData as ICountry[])].sort(
+      const sortedFilter: ICountry[] = [...(filteredData as ICountry[])].sort(
         (a, b) => -1 * a.name.localeCompare(b.name)
       );
-      setCountryData(sortDesc);
-
-      if (filtered) {
-        const sortedFilter: ICountry[] = [...(filtered as ICountry[])].sort(
-          (a, b) => -1 * a.name.localeCompare(b.name)
-        );
-        setFiltered(sortedFilter);
-      }
+      setFilteredData(sortedFilter);
     }
   };
 
   const filter = (): void => {
-    if (isChosen === 'smallLith') {
+    if (chosenFilter === 'smallLith') {
       const LITHUANIA = countryData?.find((item) => item.name === 'Lithuania');
 
       if (LITHUANIA) {
         const filter = [...(countryData as ICountry[])].filter(
           (country) => country.area < LITHUANIA.area
         );
-        setFiltered(filter);
+        setFilteredData(filter);
       }
-    } else if (isChosen === 'withinOceania') {
+    } else if (chosenFilter === 'withinOceania') {
       const REGION = 'Oceania';
 
       const filter = [...(countryData as ICountry[])].filter(
         (country) => country.region === REGION
       );
-      setFiltered(filter);
+      setFilteredData(filter);
     }
   };
 
   const reset = (): void => {
-    setFiltered(undefined);
-    setIsChosen(undefined);
+    setFilteredData(countryData);
+    setChosenFilter(undefined);
   };
 
   const toggle = (): void => {
     setIsToggled(!isToggled);
   };
 
-  const countries = countryData?.map((country: ICountry, idx: number) => (
-    <CountryCard key={idx} country={country} />
-  ));
-
-  const filteredCountries = filtered?.map((country: ICountry, idx: number) => (
-    <CountryCard key={idx} country={country} />
-  ));
+  const filteredCountriesList = filteredData?.map(
+    (country: ICountry, idx: number) => (
+      <CountryCard key={idx} country={country} />
+    )
+  );
 
   return (
     <div className='App'>
@@ -106,8 +93,8 @@ const App: FC = () => {
                 value='smallerThanLith'
                 name='filter'
                 id='smallLith'
-                onChange={() => setIsChosen('smallLith')}
-                checked={isChosen === 'smallLith'}
+                onChange={() => setChosenFilter('smallLith')}
+                checked={chosenFilter === 'smallLith'}
               />
               <label className='filter-label' htmlFor='smallLith'>
                 Countries smaller than Lithuania
@@ -119,8 +106,8 @@ const App: FC = () => {
                 value='withinOceania'
                 name='filter'
                 id='withinOceania'
-                onChange={() => setIsChosen('withinOceania')}
-                checked={isChosen === 'withinOceania'}
+                onChange={() => setChosenFilter('withinOceania')}
+                checked={chosenFilter === 'withinOceania'}
               />
               <label htmlFor='withinOceania'>Countries in Oceania</label>
             </div>
@@ -134,7 +121,7 @@ const App: FC = () => {
             </div>
           </fieldset>
         )}
-        {filteredCountries ? filteredCountries : countries}
+        {filteredCountriesList}
       </div>
     </div>
   );
