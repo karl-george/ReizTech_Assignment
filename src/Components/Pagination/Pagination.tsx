@@ -22,6 +22,11 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
     </li>
   ));
 
+  const renderPageList = pageNumberList.slice(
+    currentPage == 1 ? currentPage - 1 : currentPage - 2,
+    currentPage + 3
+  );
+
   const prevPage = (): void => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
@@ -38,14 +43,28 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
     <div>
       <ul className='pagination'>
         <li className='page-item'>
-          <a href='#' onClick={prevPage} className='prev page-number'>
+          <a href='#' onClick={() => setCurrentPage(1)} className='page-number'>
+            ↞
+          </a>
+        </li>
+        <li className='page-item'>
+          <a href='#' onClick={prevPage} className='page-number'>
             ←
           </a>
         </li>
-        {pageNumberList}
+        {renderPageList}
         <li className='page-item'>
-          <a href='#' onClick={nextPage} className='next page-number'>
+          <a href='#' onClick={nextPage} className='page-number'>
             →
+          </a>
+        </li>
+        <li className='page-item'>
+          <a
+            href='#'
+            onClick={() => setCurrentPage(pageNumbers.length)}
+            className='page-number'
+          >
+            ↠
           </a>
         </li>
       </ul>
