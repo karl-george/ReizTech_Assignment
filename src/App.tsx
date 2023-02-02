@@ -101,7 +101,7 @@ const App: FC = () => {
   return (
     <div className='App'>
       <div className='container'>
-        <h1 className='title'>CountryList</h1>
+        <h1 className='title'>Country Sizes and Regions</h1>
         <div className='btn-wrapper'>
           <div className='btn-group'>
             <button className='btn btn-color' onClick={() => sort('asc')}>
@@ -159,6 +159,11 @@ const App: FC = () => {
           setCurrentPage={setCurrentPage}
         />
       </div>
+      <footer>
+        <div className='container'>
+          <p className='footer-info'>Created by Karl George 2023</p>
+        </div>
+      </footer>
     </div>
   );
 };

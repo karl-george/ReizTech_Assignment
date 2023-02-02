@@ -6,7 +6,7 @@
 
 .title {
   font-size: 5rem;
-  margin: 2rem 0;
+  margin: 2rem 0 6rem;
 }
 
 .btn-wrapper {
@@ -100,6 +100,15 @@ input[type='checkbox']:checked::before {
   align-items: center;
   margin-top: 1.2rem;
   width: 100%;
+}
+
+footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--color-primary);
+}
+
+.footer-info {
+  text-align: center;
 }
 
 @media screen and (max-width: 650px) {
