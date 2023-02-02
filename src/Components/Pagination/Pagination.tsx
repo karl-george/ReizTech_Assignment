@@ -8,8 +8,10 @@ interface Props {
 }
 
 const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
+  // Fill array of page numbers at 1 based index
   const pageNumbers = [...Array(numberOfPages + 1).keys()].slice(1);
 
+  // Render page number list
   const pageNumberList = pageNumbers.map((pageNumber) => (
     <li key={pageNumber}>
       <a
@@ -22,6 +24,8 @@ const Pagination = ({ numberOfPages, currentPage, setCurrentPage }: Props) => {
     </li>
   ));
 
+  // Sibling control
+  // Show 1 prev sibling, 3 next siblings until the end/beginning
   const renderPageList = pageNumberList.slice(
     currentPage == 1 ? currentPage - 1 : currentPage - 2,
     currentPage + 3

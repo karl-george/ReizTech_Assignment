@@ -4,11 +4,13 @@
   padding: 2rem;
 }
 
+/* TYPOGRAPHY */
 .title {
   font-size: 5rem;
   margin: 2rem 0 6rem;
 }
 
+/* BUTTONS */
 .btn-wrapper {
   display: flex;
   justify-content: space-between;
@@ -42,6 +44,7 @@
   background: #6868d1;
 }
 
+/* CHECKBOXES */
 .filter-group {
   display: none;
   border: none;
@@ -102,6 +105,7 @@ input[type='checkbox']:checked::before {
   width: 100%;
 }
 
+/* FOOTER */
 footer {
   margin-top: 4rem;
   border-top: 1px solid var(--color-primary);
@@ -111,6 +115,7 @@ footer {
   text-align: center;
 }
 
+/* MOBILE STYLES */
 @media screen and (max-width: 650px) {
   .filter-group {
     width: 100%;

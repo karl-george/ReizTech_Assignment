@@ -22,15 +22,16 @@ const App: FC = () => {
       });
   }, []);
 
+  // Pagination control
   const idxOfLastCountry = currentPage * countriesPerPage;
   const idxOfFirstCountry = idxOfLastCountry - countriesPerPage;
   const currentCountries = filteredData?.slice(
     idxOfFirstCountry,
     idxOfLastCountry
   );
-
   const numberOfPages = Math.ceil(filteredData.length / countriesPerPage);
 
+  // Alphabetical sort
   const sort = (dir: string): void => {
     if (dir === 'asc') {
       const sortedFilter: ICountry[] = [...(filteredData as ICountry[])].sort(
@@ -45,6 +46,7 @@ const App: FC = () => {
     }
   };
 
+  // Filter data depending on chosen checkboxes
   const filter = (): void => {
     const LITHUANIA = countryData?.find((item) => item.name === 'Lithuania');
     const REGION = 'Oceania';
@@ -81,6 +83,7 @@ const App: FC = () => {
     }
   };
 
+  // Reset everything to default
   const reset = (): void => {
     setFilteredData(countryData);
     setCheckLithFilter(false);
@@ -88,10 +91,12 @@ const App: FC = () => {
     setCurrentPage(1);
   };
 
+  // Toggle displaying filter choices
   const toggle = (): void => {
     setIsToggled(!isToggled);
   };
 
+  // Render list for country data
   const currentCountriesList = currentCountries?.map(
     (country: ICountry, idx: number) => (
       <CountryCard key={idx} country={country} />
