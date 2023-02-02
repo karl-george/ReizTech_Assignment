@@ -7,7 +7,8 @@ import './App.css';
 const App: FC = () => {
   const [countryData, setCountryData] = useState<ICountry[]>([]);
   const [filteredData, setFilteredData] = useState<ICountry[]>([]);
-  const [chosenFilter, setChosenFilter] = useState<string>('');
+  const [checkLithFilter, setCheckLithFilter] = useState<boolean>(false);
+  const [checkOceFilter, setCheckOceFilter] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [countriesPerPage, setCountriesPerPage] = useState<number>(10);
@@ -45,9 +46,23 @@ const App: FC = () => {
   };
 
   const filter = (): void => {
-    if (chosenFilter === 'smallLith') {
-      const LITHUANIA = countryData?.find((item) => item.name === 'Lithuania');
+    const LITHUANIA = countryData?.find((item) => item.name === 'Lithuania');
+    const REGION = 'Oceania';
 
+    if (checkLithFilter && checkOceFilter) {
+      if (LITHUANIA) {
+        const filteredLith = [...(countryData as ICountry[])].filter(
+          (country) => country.area < LITHUANIA.area
+        );
+        const filteredOce = [...(countryData as ICountry[])].filter(
+          (country) => country.region === REGION
+        );
+
+        const filter = [...filteredLith, ...filteredOce];
+        setFilteredData(filter);
+        setCurrentPage(1);
+      }
+    } else if (checkLithFilter && !checkOceFilter) {
       if (LITHUANIA) {
         const filter = [...(countryData as ICountry[])].filter(
           (country) => country.area < LITHUANIA.area
@@ -55,9 +70,7 @@ const App: FC = () => {
         setFilteredData(filter);
         setCurrentPage(1);
       }
-    } else if (chosenFilter === 'withinOceania') {
-      const REGION = 'Oceania';
-
+    } else if (!checkLithFilter && checkOceFilter) {
       const filter = [...(countryData as ICountry[])].filter(
         (country) => country.region === REGION
       );
@@ -68,7 +81,8 @@ const App: FC = () => {
 
   const reset = (): void => {
     setFilteredData(countryData);
-    setChosenFilter('');
+    setCheckLithFilter(false);
+    setCheckOceFilter(false);
     setCurrentPage(1);
   };
 
@@ -104,12 +118,10 @@ const App: FC = () => {
           <fieldset className='filter-group'>
             <div className='control'>
               <input
-                type='radio'
-                value='smallerThanLith'
-                name='filter'
+                type='checkbox'
                 id='smallLith'
-                onChange={() => setChosenFilter('smallLith')}
-                checked={chosenFilter === 'smallLith'}
+                onChange={(e) => setCheckLithFilter(e.target.checked)}
+                checked={checkLithFilter}
               />
               <label className='filter-label' htmlFor='smallLith'>
                 Countries smaller than Lithuania
@@ -117,12 +129,10 @@ const App: FC = () => {
             </div>
             <div className='control'>
               <input
-                type='radio'
-                value='withinOceania'
-                name='filter'
+                type='checkbox'
                 id='withinOceania'
-                onChange={() => setChosenFilter('withinOceania')}
-                checked={chosenFilter === 'withinOceania'}
+                onChange={(e) => setCheckOceFilter(e.target.checked)}
+                checked={checkOceFilter}
               />
               <label htmlFor='withinOceania'>Countries in Oceania</label>
             </div>
