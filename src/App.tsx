@@ -12,6 +12,8 @@ const App: FC = () => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [countriesPerPage, setCountriesPerPage] = useState<number>(10);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v2/all?fields=name,region,area`)
@@ -19,6 +21,12 @@ const App: FC = () => {
       .then((data) => {
         setCountryData(data);
         setFilteredData(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (error) {
+          setErrorMessage('Sorry, something went wrong!');
+        }
       });
   }, []);
 
@@ -103,72 +111,83 @@ const App: FC = () => {
     )
   );
 
+  // Handle error
+  if (errorMessage) {
+    return <h2 className='error'>{errorMessage}</h2>;
+  }
+
   return (
     <div className='App'>
-      <div className='container'>
-        <h1 className='title'>Country Sizes and Regions</h1>
-        <div className='btn-wrapper'>
-          <div className='btn-group'>
-            <button className='btn btn-color' onClick={() => sort('asc')}>
-              Sort ↑
-            </button>
-            <button className='btn btn-color' onClick={() => sort('desc')}>
-              Sort ↓
-            </button>
-          </div>
-          <button className='btn btn-color' onClick={toggle}>
-            Filter
-          </button>
-        </div>
+      {isLoading ? (
+        <h2 className='loading'>Loading...</h2>
+      ) : (
+        <>
+          <div className='container'>
+            <h1 className='title'>Country Sizes and Regions</h1>
+            <div className='btn-wrapper'>
+              <div className='btn-group'>
+                <button className='btn btn-color' onClick={() => sort('asc')}>
+                  Sort ↑
+                </button>
+                <button className='btn btn-color' onClick={() => sort('desc')}>
+                  Sort ↓
+                </button>
+              </div>
+              <button className='btn btn-color' onClick={toggle}>
+                Filter
+              </button>
+            </div>
 
-        {isToggled && (
-          <fieldset className='filter-group'>
-            <div className='control'>
-              <input
-                type='checkbox'
-                id='smallLith'
-                onChange={(e) => setCheckLithFilter(e.target.checked)}
-                checked={checkLithFilter}
-              />
-              <span className='checkmark'></span>
-              <label className='filter-label' htmlFor='smallLith'>
-                Countries smaller than Lithuania
-              </label>
+            {isToggled && (
+              <fieldset className='filter-group'>
+                <div className='control'>
+                  <input
+                    type='checkbox'
+                    id='smallLith'
+                    onChange={(e) => setCheckLithFilter(e.target.checked)}
+                    checked={checkLithFilter}
+                  />
+                  <span className='checkmark'></span>
+                  <label className='filter-label' htmlFor='smallLith'>
+                    Countries smaller than Lithuania
+                  </label>
+                </div>
+                <div className='control'>
+                  <input
+                    type='checkbox'
+                    id='withinOceania'
+                    onChange={(e) => setCheckOceFilter(e.target.checked)}
+                    checked={checkOceFilter}
+                  />
+                  <span className='checkmark'></span>
+                  <label className='filter-label' htmlFor='withinOceania'>
+                    Countries in Oceania
+                  </label>
+                </div>
+                <div className='filter-btn-group'>
+                  <button className='btn btn-small btn-color' onClick={filter}>
+                    Apply
+                  </button>
+                  <button className='btn btn-small btn-color' onClick={reset}>
+                    Reset
+                  </button>
+                </div>
+              </fieldset>
+            )}
+            {currentCountriesList}
+            <Pagination
+              numberOfPages={numberOfPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+          <footer>
+            <div className='container'>
+              <p className='footer-info'>Created by Karl George 2023</p>
             </div>
-            <div className='control'>
-              <input
-                type='checkbox'
-                id='withinOceania'
-                onChange={(e) => setCheckOceFilter(e.target.checked)}
-                checked={checkOceFilter}
-              />
-              <span className='checkmark'></span>
-              <label className='filter-label' htmlFor='withinOceania'>
-                Countries in Oceania
-              </label>
-            </div>
-            <div className='filter-btn-group'>
-              <button className='btn btn-small btn-color' onClick={filter}>
-                Apply
-              </button>
-              <button className='btn btn-small btn-color' onClick={reset}>
-                Reset
-              </button>
-            </div>
-          </fieldset>
-        )}
-        {currentCountriesList}
-        <Pagination
-          numberOfPages={numberOfPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>
-      <footer>
-        <div className='container'>
-          <p className='footer-info'>Created by Karl George 2023</p>
-        </div>
-      </footer>
+          </footer>
+        </>
+      )}
     </div>
   );
 };

@@ -115,6 +115,13 @@ footer {
   text-align: center;
 }
 
+/* ERROR */
+.error,
+.loading {
+  text-align: center;
+  margin-top: 12rem;
+}
+
 /* MOBILE STYLES */
 @media screen and (max-width: 650px) {
   .filter-group {
