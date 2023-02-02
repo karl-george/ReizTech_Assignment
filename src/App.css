@@ -58,7 +58,15 @@
   margin-bottom: 2rem;
 }
 
-input[type='radio'] {
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 0.5rem;
+}
+
+input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
@@ -67,31 +75,22 @@ input[type='radio'] {
   width: 1.15em;
   height: 1.15em;
   border: 0.1em solid var(--color-text-primary);
-  border-radius: 50%;
   display: grid;
   place-content: center;
 }
 
-input[type='radio']::before {
+input[type='checkbox']::before {
   content: '';
   width: 0.65em;
   height: 0.65em;
-  border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--color-primary);
   background-color: CanvasText;
 }
 
-input[type='radio']:checked::before {
+input[type='checkbox']:checked::before {
   transform: scale(1);
-}
-
-.control {
-  display: flex;
-  align-items: center;
-  margin: 1rem 0;
-  gap: 0.5rem;
 }
 
 .filter-btn-group {

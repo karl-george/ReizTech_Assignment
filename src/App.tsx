@@ -122,6 +122,7 @@ const App: FC = () => {
                 onChange={(e) => setCheckLithFilter(e.target.checked)}
                 checked={checkLithFilter}
               />
+              <span className='checkmark'></span>
               <label className='filter-label' htmlFor='smallLith'>
                 Countries smaller than Lithuania
               </label>
@@ -133,7 +134,10 @@ const App: FC = () => {
                 onChange={(e) => setCheckOceFilter(e.target.checked)}
                 checked={checkOceFilter}
               />
-              <label htmlFor='withinOceania'>Countries in Oceania</label>
+              <span className='checkmark'></span>
+              <label className='filter-label' htmlFor='withinOceania'>
+                Countries in Oceania
+              </label>
             </div>
             <div className='filter-btn-group'>
               <button className='btn btn-small btn-color' onClick={filter}>
