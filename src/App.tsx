@@ -54,12 +54,11 @@ const App: FC = () => {
         const filteredLith = [...(countryData as ICountry[])].filter(
           (country) => country.area < LITHUANIA.area
         );
-        const filteredOce = [...(countryData as ICountry[])].filter(
+        const filteredOce = [...(filteredLith as ICountry[])].filter(
           (country) => country.region === REGION
         );
 
-        const filter = [...filteredLith, ...filteredOce];
-        setFilteredData(filter);
+        setFilteredData(filteredOce);
         setCurrentPage(1);
       }
     } else if (checkLithFilter && !checkOceFilter) {
