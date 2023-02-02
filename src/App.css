@@ -128,3 +128,16 @@ footer {
     width: 100%;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+  }
+}

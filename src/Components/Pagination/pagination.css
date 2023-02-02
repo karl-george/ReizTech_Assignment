@@ -21,3 +21,15 @@
   background: var(--color-primary);
   border-radius: 3px;
 }
+
+/* MOBILE STYLES */
+@media screen and (max-width: 650px) {
+  .pagination {
+    padding: 0.8rem;
+    gap: 0.3rem;
+  }
+  .page-number {
+    padding: 0.3rem 0.8rem;
+    font-size: 1.6rem;
+  }
+}
