@@ -75,6 +75,9 @@ const App: FC = () => {
       );
       setFilteredData(filter);
       setCurrentPage(1);
+    } else if (!checkLithFilter && !checkOceFilter) {
+      setFilteredData(countryData);
+      setCurrentPage(1);
     }
   };
 
